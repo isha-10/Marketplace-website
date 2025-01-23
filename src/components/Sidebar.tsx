@@ -54,6 +54,8 @@ const Sidebar: React.FC = () => {
                     type="text"
                     placeholder="Search Product"
                     className="flex-1 border p-2 rounded-l focus:outline-none"
+                    spellCheck={false}
+                    data-ms-editor= "true"
                   />
                   <button className="bg-orange-500 text-white px-4 rounded-r">
                   <CiSearch />
@@ -148,11 +150,13 @@ const Sidebar: React.FC = () => {
         <h2 className="text-2xl font-semibold mb-4">Photo Gallery</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {galleryImages.map((image, index) => (
-            <div key={index} className="relative aspect-square overflow-hidden rounded-lg">
+            <div key={index} className="relative overflow-hidden rounded-lg aspect-square">
               <Image
                 src={image.src}
                 alt={image.alt}
-                className="object-cover hover:scale-110 transition-transform duration-300"
+                width={150}
+                height={150}
+                className="object-cover w-full h-full hover:scale-110 transition-transform duration-300"
               />
             </div>
           ))}

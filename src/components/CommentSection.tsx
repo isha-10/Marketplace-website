@@ -1,118 +1,143 @@
 // components/CommentSection.tsx
 "use client";
-import Image from "next/image";
-import React, { useState, useEffect } from "react";
 
-// Define the structure of a comment
+import React, { useState } from 'react';
+import { client } from '@/sanity/lib/client';
+
 interface Comment {
-  id: number;
+  _id: string;
   name: string;
   email: string;
-  content: string;
-  profileImage: string;
-  createdAt: string;
+  comment: string;
+  _createdAt: string;
 }
 
-const CommentSection: React.FC = () => {
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [content, setContent] = useState("");
+interface CommentSectionProps {
+  postId: string;
+  initialComments: Comment[];
+}
 
-  // Load comments from localStorage on component mount
-  useEffect(() => {
-    const storedComments = localStorage.getItem("comments");
-    if (storedComments) {
-      setComments(JSON.parse(storedComments));
-    }
-  }, []);
+const CommentSection = ({ postId, initialComments }: CommentSectionProps) => {
+  const [comments, setComments] = useState<Comment[]>(initialComments);
+  const [newComment, setNewComment] = useState({
+    name: '',
+    email: '',
+    comment: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Save comments to localStorage whenever the comments array changes
-  useEffect(() => {
-    localStorage.setItem("comments", JSON.stringify(comments));
-  }, [comments]);
-
-  // Handle form submission
-  const handlePostComment = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
 
-    if (!name || !content) {
-      alert("Please fill out your name and comment.");
-      return;
+    try {
+      const response = await fetch('/api/comments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          postId,
+          name: newComment.name,
+          email: newComment.email,
+          comment: newComment.comment,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to post comment');
+      }
+
+      const data = await response.json();
+      
+      setComments([{ 
+        _id: data._id,
+        name: newComment.name,
+        email: newComment.email,
+        comment: newComment.comment,
+        _createdAt: new Date().toISOString()
+      }, ...comments]);
+      
+      setNewComment({ name: '', email: '', comment: '' });
+    } catch (err) {
+      setError('Failed to post comment. Please try again.');
+      console.error('Error submitting comment:', err);
+    } finally {
+      setIsSubmitting(false);
     }
-
-    const newComment: Comment = {
-      id: Date.now(), // Unique ID for each comment
-      name,
-      email,
-      content,
-      profileImage: "/commentprofile.png", // Default profile image
-      createdAt: new Date().toLocaleString(),
-    };
-
-    setComments([newComment, ...comments]);
-    setName("");
-    setEmail("");
-    setContent("");
   };
 
   return (
-    <section className="pt-12 border-t border-gray-200">
-      <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-6">Post a Comment</h2>
+    <div className="space-y-8">
+      <h3 className="text-2xl font-bold text-gray-800">
+        Comments ({comments.length})
+      </h3>
 
-      {/* Comment Form */}
-      <form className="space-y-6" onSubmit={handlePostComment}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#FF9F0D] focus:border-[#FF9F0D] outline-none transition-all"
-            required
-          />
-          <input
-            type="email"
-            placeholder="Email (optional)"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#FF9F0D] focus:border-[#FF9F0D] outline-none transition-all"
-          />
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          {error}
         </div>
-        <textarea
-          placeholder="Write a Comment"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          rows={6}
-          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#FF9F0D] focus:border-[#FF9F0D] outline-none resize-y min-h-[150px] transition-all"
-          required
-        />
-        <button
-          type="submit"
-          className="bg-[#FF9F0D] text-white px-8 py-3 rounded-lg hover:bg-[#e88d00] transition-all duration-300 text-sm md:text-base"
-        >
-          Post Comment
-        </button>
-      </form>
+      )}
 
-      {/* Display Comments */}
-      <div className="mt-12 space-y-6">
+      {/* Comment List */}
+      <div className="space-y-6">
         {comments.map((comment) => (
-          <div key={comment.id} className="flex items-start gap-4">
-            <Image
-              src="/commentprofile.png"
-              alt="Profile"
-              className="w-12 h-12 rounded-full object-cover"
-            />
-            <div>
-              <h4 className="text-lg font-semibold">{comment.name}</h4>
-              <p className="text-sm text-gray-500">{comment.createdAt}</p>
-              <p className="mt-2">{comment.content}</p>
+          <div key={comment._id} className="bg-gray-50 p-6 rounded-lg">
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h4 className="font-semibold text-gray-800">{comment.name}</h4>
+                <p className="text-sm text-gray-500">
+                  {new Date(comment._createdAt).toLocaleDateString()}
+                </p>
+              </div>
             </div>
+            <p className="text-gray-600">{comment.comment}</p>
           </div>
         ))}
       </div>
-    </section>
+
+      {/* Comment Form */}
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <input
+            type="text"
+            placeholder="Name"
+            value={newComment.name}
+            onChange={(e) => setNewComment({ ...newComment, name: e.target.value })}
+            className="w-full p-3 border rounded-md"
+            required
+            spellCheck={false}
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={newComment.email}
+            onChange={(e) => setNewComment({ ...newComment, email: e.target.value })}
+            className="w-full p-3 border rounded-md"
+            required
+            spellCheck={false}
+          />
+        </div>
+        <textarea
+          placeholder="Your comment"
+          value={newComment.comment}
+          onChange={(e) => setNewComment({ ...newComment, comment: e.target.value })}
+          className="w-full p-3 border rounded-md h-32"
+          required
+          spellCheck={false}
+        />
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="bg-[#FF9F0D] text-white px-6 py-3 rounded-md hover:bg-[#ff9f0dd3] transition-colors disabled:opacity-50"
+        >
+          {isSubmitting ? 'Submitting...' : 'Post Comment'}
+        </button>
+      </form>
+      
+    </div>
   );
 };
 

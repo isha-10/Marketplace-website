@@ -82,7 +82,7 @@ export default function ShopPage() {
     "Chicken Chup",
     "Drink",
     "Pizza",
-    "Thi",
+    "Dessert",
     "Non Veg",
     "Uncategorized",
   ];
@@ -129,7 +129,7 @@ export default function ShopPage() {
               key={shop.slug.current}
               className="border rounded-lg overflow-hidden group"
             >
-              <Link href={`/shop/${shop.slug.current}`}>
+              <Link href={`/shop/${shop.slug.current}`} className="hover:text-orange-500 hover:transition-all duration-300 hover:scale-105">
                 <div className="relative">
                   <Image
                     src={shop.imageUrl}
@@ -146,9 +146,9 @@ export default function ShopPage() {
                   <h3 className="text-lg font-semibold">{shop.itemName}</h3>
                 </div>
                 <div className="flex items-center gap-2 px-4">
-                  <p className="text-orange-500">${shop.price}.00</p>
+                  <p className="text-orange-500">${shop.price}</p>
                   <p className="text-[#828282] line-through">
-                    ${shop.oldPrice}.00
+                    ${shop.oldPrice}
                   </p>
                 </div>
               </Link>
@@ -276,11 +276,11 @@ export default function ShopPage() {
                   <div className="flex items-center gap-1 mt-1">
                     <span className="text-orange-500">★</span>
                     <span className="text-orange-500">★</span>
-                    <span className="text-gray-300">★</span>
-                    <span className="text-gray-300">★</span>
-                    <span className="text-gray-300">★</span>
+                    <span className="text-orange-500">★</span>
+                    <span className="text-orange-500">★</span>
+                    <span className="text-orange-500">★</span>
                   </div>
-                  <p className="mt-2">Price: ${shop.price}.00</p>
+                  <p className="mt-2">Price: ${shop.price}</p>
                 </div>
               </div>
             ))}

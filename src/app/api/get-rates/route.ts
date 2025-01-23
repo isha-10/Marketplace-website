@@ -19,8 +19,8 @@ export async function POST(req: NextRequest) {
     }
 
     const shipFromAddress: Address = {
-      name: "Maryam Anwar",
-      phone: "+92 3141013997",
+      name: "Mubashir Raza",
+      phone: "+923121171831",
       addressLine1: "456 Oak Avenue",
       addressLine2: "Suite 200",
       cityLocality: "Los Angeles",

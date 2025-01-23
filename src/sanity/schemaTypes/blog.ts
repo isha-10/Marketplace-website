@@ -70,5 +70,11 @@ export default defineType({
       type: "slug",
       options: { source: "heading", maxLength: 200 },
     }),
+    defineField({
+      name: "comments",
+      title: "Comments",
+      type: "reference",
+      to: [{ type: "comment" }],
+    }),
   ],
 });

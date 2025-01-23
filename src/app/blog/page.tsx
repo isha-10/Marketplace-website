@@ -36,7 +36,7 @@ export default async function fetchblogs(){
       <ul>
         {blogs.map((blog) => (
           <li key={blog.slug.current} className="blog-item">
-            <Image src={blog.image1Url} alt={blog.heading} width={800} height={460}className="mb-3  rounded-lg" />
+            <Image src={blog.image1Url} alt={blog.heading} width={800} height={460} className="mb-3  rounded-lg" />
             <div className='flex flex-wrap gap-4 text-sm text-gray-400'>
                 <div className='flex items-center gap-2'>
                     <Image

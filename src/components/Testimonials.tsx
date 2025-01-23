@@ -11,7 +11,7 @@ const greatVibes = Great_Vibes({
 
   return (
     <section className="py-10 bg-transparent relative overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container flex-col items-center mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <h3 className={`${greatVibes.className} text-[#FF9F0D] text-3xl text-start mb-5`}>
           Testimonials

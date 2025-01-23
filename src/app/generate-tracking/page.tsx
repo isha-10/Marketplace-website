@@ -104,14 +104,14 @@ const ShippingRatesPage = () => {
     <div>
       
       <div className="min-h-screen bg-[#FAFAFA] py-12 px-6 wrapper">
-        <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-lg p-8">
+        <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-lg p-8 max-w-xl">
           <h1 className="text-4xl font-bold text-[#252B42] text-center mb-8">
             Shipping Rates Calculator
           </h1>
 
           {/* Shipping Address Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <form onSubmit={handleSubmit} className="space-y-6 ">
+            <div className="grid grid-cols-1 gap-6">
               {[
                 "name",
                 "phone",
@@ -140,6 +140,7 @@ const ShippingRatesPage = () => {
                   }
                   className="w-full p-3 border rounded-md shadow-sm focus:ring focus:ring-indigo-400"
                   required
+                  spellCheck="false"
                 />
               ))}
             </div>

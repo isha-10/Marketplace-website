@@ -1,4 +1,3 @@
-
 import CommentSection from "@/components/CommentSection";
 import PageHeader from "@/components/PageHeader";
 import Sidebar from "@/components/Sidebar";
@@ -26,7 +25,15 @@ export default async function BlogPage({
       paragraph6,
       paragraph7,
       paragraph8,
-      slug
+      slug,
+      _createdAt,
+      "comments": *[_type == "comment" && post._ref == ^._id] | order(_createdAt desc) {
+        _id,
+        name,
+        email,
+        comment,
+        _createdAt
+      }
     }
   `;
 
@@ -45,7 +52,7 @@ export default async function BlogPage({
   {/* Left Column - Main Content */}
   <div className="lg:col-span-2 space-y-8 shadow-sm">
   <div className="relative aspect-video">
-      <Image src={blog.image1Url} alt="Image 1" width={800}height={460} className="object-cover rounded-lg mb-3" />
+      <Image src={blog.image1Url} alt="Image 1" width={800} height={460} className="object-cover rounded-lg mb-3" />
       <div className='flex flex-wrap gap-4 text-sm text-gray-400'>
                 <div className='flex items-center gap-2'>
                     <Image
@@ -106,7 +113,10 @@ export default async function BlogPage({
       <p className="leading-relaxed">{blog.paragraph7}</p>
       <p className="leading-relaxed">{blog.paragraph8}</p>
       <div className="mt-6">
-      <CommentSection/>
+      <CommentSection 
+        postId={blog._id} 
+        initialComments={blog.comments} 
+      />
       </div>
       </div>
       </article>

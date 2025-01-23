@@ -24,11 +24,11 @@ const ContactPage = () => {
   return (
     <div className="bg-white">
         <PageHeader
-               title="CONTACT Page"
+               title="Contact Page"
                currentPage="contact"
                />
         
-    <div className="bg-gray-50 min-h-screen mt-10 flex items-center justify-center mb-10 px-4">
+    <div className="bg-gray-50 min-h-screen mt-10 flex items-center justify-center mb-10 px-4 max-w-xl mx-auto">
       <div className="max-w-4xl w-full bg-white shadow-md rounded-lg p-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
           Contact Us

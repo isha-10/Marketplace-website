@@ -13,7 +13,7 @@ const Dropdown: React.FC<DropdownProps> = ({ items, isOpen }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="absolute top-full left-0 bg-black border border-gray-700 rounded-md py-2 min-w-[200px] z-50">
+    <div className="absolute top-full left-0 bg-black border rounded-md py-2 min-w-[200px] z-50">
       {items.map((item, index) => (
         <Link
           key={index}
@@ -125,6 +125,8 @@ const Navbar: React.FC = () => {
               type="text"
               placeholder="Search..."
               className="pl-4 pr-10 py-2 rounded-full bg-black border border-yellow-500 text-white focus:outline-none"
+              spellCheck={false}
+              data-ms-editor="true"
             />
             <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-yellow-500" />
           </div>

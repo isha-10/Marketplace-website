@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#0D0D0D]">
       {/* Hero Section */}
-      <div className="relative min-h-screen w-full">
+      <div className="relative min-h-[80vh] w-full">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image 
@@ -37,7 +37,7 @@ export default function Home() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 h-full container lg:left-10 mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 h-full container lg:left-10 mx-auto px-4 sm:px-6 lg:px-8 pt-[10vh]">
           <div className="absolute left-0 h-full hidden md:block">
             <Image 
               src="/herosideline.png" 

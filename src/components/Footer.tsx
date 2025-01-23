@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import Image from "next/image";
 import { PiClockClockwiseBold } from "react-icons/pi";
@@ -14,7 +15,8 @@ const Footer = () => {
         </div>
 
         <div className="flex md:mt-0 mt-[20px]">
-          <input type="text" placeholder="Enter Your Email" className="bg-[#FF9F0D] text-white py-[5px] px-[10px] md:py-[10px] md:px-[20px] mr-2 rounded" />
+          <input type="text" placeholder="Enter Your Email" className="bg-[#FF9F0D] text-white py-[5px] px-[10px] md:py-[10px] md:px-[20px] mr-2 rounded" spellCheck={false} 
+          data-ms-editor={true} />
           <button className="text-[#FF9F0D] bg-white py-[5px] md:py-[10px] px-[10px] md:px-[20px] rounded">Subscribe Now</button>
         </div>
       </div>
