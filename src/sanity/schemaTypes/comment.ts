@@ -7,26 +7,26 @@ export default {
       name: 'name',
       title: 'Name',
       type: 'string',
-      validation: (Rule: any) => Rule.required()
+      validation: 'string',
     },
     {
       name: 'email',
       title: 'Email',
       type: 'string',
-      validation: (Rule: any) => Rule.required().email()
+      validation: 'number',
     },
     {
       name: 'comment',
       title: 'Comment',
       type: 'text',
-      validation: (Rule: any) => Rule.required()
+      validation: 'string',
     },
     {
       name: 'post',
       title: 'Blog Post',
       type: 'reference',
       to: [{ type: 'blog' }],
-      validation: (Rule: any) => Rule.required()
+      validation: 'string',
     },
     {
       name: 'createdAt',
