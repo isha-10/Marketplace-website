@@ -255,8 +255,8 @@ export default function ShopPage() {
             <span className="text-lg">From $0 to ${priceRange}</span>
             <span className="text-lg">Filter</span>
             </div>
-          </div>
-        </div>
+            </div>
+            </div>
         
               {/* Latest product */}
               <div>
