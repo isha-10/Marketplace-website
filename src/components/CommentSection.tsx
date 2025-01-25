@@ -3,6 +3,7 @@
 
 import React, { useState } from 'react';
 
+import { client } from '@/sanity/lib/client';
 
 interface Comment {
   _id: string;
