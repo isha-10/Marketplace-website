@@ -1,3 +1,6 @@
+
+  import { Rule } from 'sanity'
+
 export default {
   name: 'comment',
   title: 'Comment',
@@ -7,26 +10,26 @@ export default {
       name: 'name',
       title: 'Name',
       type: 'string',
-      validation: (Rule: any) => Rule.required()
+      validation: (Rule: Rule) => Rule.required(),
     },
     {
       name: 'email',
       title: 'Email',
       type: 'string',
-      validation: (Rule: any) => Rule.required()
+      validation: (Rule: Rule) => Rule.required().email(),
     },
     {
       name: 'comment',
       title: 'Comment',
       type: 'text',
-      validation: (Rule: any) => Rule.required()
+      validation: (Rule: Rule) => Rule.required(),
     },
     {
       name: 'post',
       title: 'Blog Post',
       type: 'reference',
       to: [{ type: 'blog' }],
-      validation: (Rule: any) => Rule.required()
+      validation: (Rule: Rule) => Rule.required(),
     },
     {
       name: 'createdAt',
@@ -36,6 +39,6 @@ export default {
         dateFormat: 'YYYY-MM-DD',
         timeFormat: 'HH:mm',
       },
-    }
-  ]
-} 
+    },
+  ],
+}
