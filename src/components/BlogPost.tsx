@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { BiComment } from 'react-icons/bi'
 import { Great_Vibes } from 'next/font/google';
 import { client } from '@/sanity/lib/client';
-import { urlFor } from '@/sanity/lib/image';
+
 import Link from 'next/link';
 const greatVibes = Great_Vibes({
   weight: '400', // Default weight
